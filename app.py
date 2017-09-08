@@ -18,7 +18,10 @@ def get_data(ticker):
 	#https://www.quandl.com/api/v3/datasets/EOD/AAPL.json?rows=31&order=desc&column_index=4&api_key=YOURAPIKEY
 	if ticker == "":
 		return ""
-	data = quandl.get("EOD/" + ticker, rows = 30, column_index = 4, returns = "pandas")
+	try:
+		data = quandl.get("EOD/" + ticker, rows = 30, column_index = 4, returns = "pandas")
+	except quandl.errors.quandl_error.ForbiddenError:
+		return ""
 	return data
 
 def make_plot(ticker, data):
