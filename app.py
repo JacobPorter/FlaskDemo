@@ -18,7 +18,8 @@ def get_data(ticker):
 	if ticker == "":
 		return ""
 	try:
-		data = quandl.get("EOD/" + ticker, rows = 30, column_index = 4, returns = "pandas")
+		#Instead of WIKI, this used to be EOD
+		data = quandl.get("WIKI/" + ticker, rows = 30, column_index = 4, returns = "pandas")
 	except quandl.errors.quandl_error.ForbiddenError:
 		return ""
 	return data
