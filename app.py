@@ -23,6 +23,8 @@ def get_data(ticker):
 		data = quandl.get("WIKI/" + ticker, rows = 30, column_index = 4, returns = "pandas")
 	except quandl.errors.quandl_error.ForbiddenError:
 		return ""
+	except quandl.errors.quandl_error.NotFoundError:
+		return ""
 	return data
 
 def make_plot(ticker, data):
