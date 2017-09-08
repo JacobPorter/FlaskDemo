@@ -26,7 +26,7 @@ def get_data(ticker):
 	return data
 
 def make_plot(ticker, data):
-	p1 = figure(x_axis_type="datetime", title="Stock Closing Prices " + ticker)
+	p1 = figure(x_axis_type="datetime", title="Stock Closing Prices " + ticker, width=600, height=400)
 	p1.grid.grid_line_alpha=0.3
 	p1.xaxis.axis_label = 'Date'
 	p1.yaxis.axis_label = 'Price'
