@@ -29,7 +29,7 @@ def make_plot(ticker, data):
 	p1.grid.grid_line_alpha=0.3
 	p1.xaxis.axis_label = 'Date'
 	p1.yaxis.axis_label = 'Price'
-	if ticker == "":
+	if ticker == "" or data == "":
 		return p1
 	p1.line(data.index, data['Close'], color='#A6CEE3', legend=ticker)
 	p1.legend.location = "top_left"
@@ -65,5 +65,5 @@ def index():
 # With debug=True, Flask server will auto-reload 
 # when there are code changes
 if __name__ == '__main__':
-	app.run(port=33507, debug=True)
+	app.run(port=5000, debug=True)
 	
