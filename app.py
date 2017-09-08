@@ -27,8 +27,8 @@ app = Flask(__name__)
 def index():
 	# Determine the selected feature
  	my_ticker = request.args.get("ticker")
-# 	if current_feature_name == None:
-# 		current_feature_name = "Sepal Length"
+ 	if my_ticker == None:
+ 		my_ticker = ""
 # 
 # 	# Create the plot
 # 	plot = create_figure(current_feature_name, 10)
