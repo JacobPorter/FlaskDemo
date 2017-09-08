@@ -35,7 +35,7 @@ def index():
 # 		
 # 	# Embed plot into HTML via Flask Render
 # 	script, div = components(plot)
-	return render_template("ticker_index.html", ticker = ticker) #, script=script, div=div,
+	return render_template("ticker_index.html", ticker = my_ticker) #, script=script, div=div,
 #		feature_names=feature_names,  current_feature_name=current_feature_name)
 
 # With debug=True, Flask server will auto-reload 
