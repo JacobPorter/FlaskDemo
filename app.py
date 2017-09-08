@@ -16,6 +16,8 @@ app = Flask(__name__)
 
 def get_data(ticker):
 	#https://www.quandl.com/api/v3/datasets/EOD/AAPL.json?rows=31&order=desc&column_index=4&api_key=YOURAPIKEY
+	if ticker == "":
+		return ""
 	data = quandl.get("EOD/" + ticker, rows = 30, column_index = 4, returns = "pandas")
 	return data
 
@@ -23,7 +25,9 @@ def make_plot(ticker, data):
 	p1 = figure(x_axis_type="datetime", title="Stock Closing Prices " + ticker)
 	p1.grid.grid_line_alpha=0.3
 	p1.xaxis.axis_label = 'Date'
-	p1.yaxis.axis_label = 'Price'	
+	p1.yaxis.axis_label = 'Price'
+	if ticker == "":
+		return p1
 	p1.line(data.index, data['Close'], color='#A6CEE3', legend=ticker)
 	p1.legend.location = "top_left"
 	return p1
@@ -43,11 +47,10 @@ def make_plot(ticker, data):
 # Index page
 @app.route('/')
 def index():
-	# Determine the selected feature
- 	my_ticker = request.args.get("ticker")
- 	if my_ticker == None:
- 		my_ticker = "SSNLF"
- 	data = get_data(my_ticker)
+	my_ticker = request.args.get("ticker")
+	if my_ticker == None:
+		my_ticker = ""
+	data = get_data(my_ticker)
 	plot = make_plot(my_ticker, data)
 	script, div = components(plot)
 	return render_template("ticker_index.html", ticker = my_ticker, script = script, div = div)
@@ -60,4 +63,4 @@ def index():
 # when there are code changes
 if __name__ == '__main__':
 	app.run(port=33507, debug=True)
-
+	
