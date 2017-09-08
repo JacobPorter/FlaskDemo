@@ -56,7 +56,7 @@ def index():
 	else:
 		data = get_data(my_ticker)
 		compare_data = str(data)
-		str_data = "Data:\n%s\n%s\n" % (str(data), str(bokeh.__version__))
+		str_data = "Data:\t%s\nBokeh version:\t%s\n" % (str(data), str(bokeh.__version__))
 		if compare_data == "" or compare_data == None:
 			return render_template("ticker_index.html", ticker = my_ticker, script = "Something bad happened.", div = "", data = str_data)
 		else:
