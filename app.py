@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect
 import pandas as pd
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
-from bokeh.models import HoverTool
 from bokeh.embed import components
 import quandl
 quandl.ApiConfig.api_key = "zhKcDxjgVzwBFH6tyFyh"
@@ -29,8 +28,6 @@ def make_plot(ticker, data):
 	p1.grid.grid_line_alpha=0.3
 	p1.xaxis.axis_label = 'Date'
 	p1.yaxis.axis_label = 'Price'
-	if ticker == "" or data == "":
-		return p1
 	p1.line(data.index, data['Close'], color='#A6CEE3', legend=ticker)
 	p1.legend.location = "top_left"
 	return p1
@@ -53,10 +50,16 @@ def index():
 	my_ticker = request.args.get("ticker")
 	if my_ticker == None:
 		my_ticker = ""
-	data = get_data(my_ticker)
-	plot = make_plot(my_ticker, data)
-	script, div = components(plot)
-	return render_template("ticker_index.html", ticker = my_ticker, script = script, div = div)
+		return render_template("ticker_index.html", ticker = my_ticker, script = None, div = None)
+	else:
+		data = get_data(my_ticker)
+		print("Data:\n%s\n" % str(data))
+		if data == "" or data == None:
+			return render_template("ticker_index.html", ticker = my_ticker, script = "Something bad happened.", div = None)
+		else:
+			plot = make_plot(my_ticker, data)
+			script, div = components(plot)
+			return render_template("ticker_index.html", ticker = my_ticker, script = script, div = div)
 # 	# Embed plot into HTML via Flask Render
  	
 	#return render_template("ticker_index.html", ticker = my_ticker) #, script=script, div=div,
