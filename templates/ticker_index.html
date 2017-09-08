@@ -13,7 +13,7 @@
 </head>
 <body>
 <H1>Closing Price for Stock in the Last Month by Jacob Porter</H1>
-Try the default value or your own ticker value.
+
 <form action="/">
 Ticker:<br>
   <input type="text" name="ticker"><br>
@@ -23,6 +23,7 @@ Ticker:<br>
 
 {{ ticker }}
 <br>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.js"></script>
 {{ script|safe }}
 {{ div|safe }}
 
