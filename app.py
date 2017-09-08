@@ -50,16 +50,17 @@ def index():
 	my_ticker = request.args.get("ticker")
 	if my_ticker == None:
 		my_ticker = ""
-		return render_template("ticker_index.html", ticker = my_ticker, script = None, div = None)
+		return render_template("ticker_index.html", ticker = my_ticker, script = "", div = "")
 	else:
 		data = get_data(my_ticker)
-		print("Data:\n%s\n" % str(data))
-		if data == "" or data == None:
-			return render_template("ticker_index.html", ticker = my_ticker, script = "Something bad happened.", div = None)
+		compare_data = str(data)
+		str_data = "Data:\n%s\n" % str(data)
+		if compare_data == "" or compare_data == None:
+			return render_template("ticker_index.html", ticker = my_ticker, script = "Something bad happened.", div = "", data = str_data)
 		else:
 			plot = make_plot(my_ticker, data)
 			script, div = components(plot)
-			return render_template("ticker_index.html", ticker = my_ticker, script = script, div = div)
+			return render_template("ticker_index.html", ticker = my_ticker, script = script, div = div, data = str_data)
 # 	# Embed plot into HTML via Flask Render
  	
 	#return render_template("ticker_index.html", ticker = my_ticker) #, script=script, div=div,
