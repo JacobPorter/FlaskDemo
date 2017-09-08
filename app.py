@@ -3,6 +3,7 @@ import pandas as pd
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, show, output_file
 from bokeh.embed import components
+import bokeh
 import quandl
 quandl.ApiConfig.api_key = "zhKcDxjgVzwBFH6tyFyh"
 
@@ -55,7 +56,7 @@ def index():
 	else:
 		data = get_data(my_ticker)
 		compare_data = str(data)
-		str_data = "Data:\n%s\n" % str(data)
+		str_data = "Data:\n%s\n%s\n" % (str(data), str(bokeh.__version__))
 		if compare_data == "" or compare_data == None:
 			return render_template("ticker_index.html", ticker = my_ticker, script = "Something bad happened.", div = "", data = str_data)
 		else:
